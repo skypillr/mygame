@@ -36,7 +36,7 @@ AnimationSerial.prototype.init = function (thresholdframechange,frameimgsFunc)
 
 }
 /*
-*  objContainImg={img:new Image()}
+*  objContainImg={img:new Image()} 参数objContainImg实现接口{img:new Image()}
 **/
 AnimationSerial.prototype.change = function (deltaTimeEveryTime,objContainImg) {
     
