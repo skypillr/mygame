@@ -1,0 +1,7 @@
+﻿#canvas1 {
+    z-index: 1;
+}
+
+#canvas2 {
+    z-index: 0;
+}
