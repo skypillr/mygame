@@ -17,6 +17,7 @@ function lerpAngle(a, b, t) {     //每一次旋转的角度
     return a + d * t;
 }
 
+//用于物体动画播放类
 function AnimationSerial()
 {
     this.thresholdFrameChange = Number.MAX_VALUE;
