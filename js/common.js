@@ -22,6 +22,7 @@ function AnimationSerial()
 {
     this.thresholdFrameChange = Number.MAX_VALUE;
     this.frameImgs = [];
+    this.frameImgsWithDurationTime = [];//[{img,durationTime}]
     this.curIndex = 0;
     this.accumulativeTimes = 0;
 }
@@ -32,10 +33,18 @@ AnimationSerial.prototype.init = function (thresholdframechange,frameimgsFunc)
     {
         throw "frameimgsFunc is not function";
     }
-    this.frameImgs = frameimgsFunc();
+    var framesImgs = frameimgsFunc();
+
+    if (framesImgs[0].hasOwnProperty("img") && framesImgs[0].hasOwnProperty("durationTime")) {
+        this.frameImgsWithDurationTime = framesImgs;
+    } else {
+        this.frameImgs = framesImgs;
+    }
 
 }
 /*
+匀速切换
+配合frameImgs使用
 *  objContainImg={img:new Image()} 参数objContainImg实现接口{img:new Image()}
 **/
 AnimationSerial.prototype.change = function (deltaTimeEveryTime,objContainImg) {
@@ -49,7 +58,7 @@ AnimationSerial.prototype.change = function (deltaTimeEveryTime,objContainImg) {
             return this.frameImgs[this.curIndex];
         } else {
             this.curIndex = 0;
-            objContainImg.img = this.frameImgs[0]
+            objContainImg.img = this.frameImgs[0];
             return this.frameImgs[0];
         }
         
@@ -57,4 +66,29 @@ AnimationSerial.prototype.change = function (deltaTimeEveryTime,objContainImg) {
     objContainImg.img = this.frameImgs[this.curIndex]
     return this.frameImgs[this.curIndex];
     
+}
+/*
+非匀速切换
+配合frameImgsWithDurationTime使用
+*  objContainImg={img:new Image()} 参数objContainImg实现接口{img:new Image()}
+**/
+AnimationSerial.prototype.changeBaseOnImgDurationTime = function (deltaTimeEveryTime, objContainImg) {
+
+    this.accumulativeTimes++;
+    if (this.accumulativeTimes * deltaTimeEveryTime > this.frameImgsWithDurationTime[this.curIndex].durationTime) {
+        this.curIndex++;
+        this.accumulativeTimes = 0;
+        if (this.curIndex < this.frameImgsWithDurationTime.length) {
+            objContainImg.img = this.frameImgsWithDurationTime[this.curIndex].img;
+            return this.frameImgsWithDurationTime[this.curIndex].img;
+        } else {
+            this.curIndex = 0;
+            objContainImg.img = this.frameImgsWithDurationTime[0].img;
+            return this.frameImgsWithDurationTime[0].img;
+        }
+
+    }
+    objContainImg.img = this.frameImgsWithDurationTime[this.curIndex].img
+    return this.frameImgsWithDurationTime[this.curIndex].img;
+
 }

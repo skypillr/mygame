@@ -4,12 +4,13 @@ function MomFish() {
     this.angle = 0;
     this.body = new Image();
     this.tail = { img: new Image() };
-    this.eye = new Image();
+    this.eye = {img: new Image()};
     //this.manyTails = [];
     //this.curTailIndex = 0;
     //this.tailChangeThreshold = 100;
     //this.accumulativeTimes = 0;
     this.tailAnimation = new AnimationSerial();
+    this.eyeAnimation = new AnimationSerial();
 }
 
 MomFish.prototype.init = function () {
@@ -42,9 +43,19 @@ MomFish.prototype.init = function () {
         manyTails.push(img);
         return manyTails;
     })
+    this.eyeAnimation.init(5000, function () {
+        var manyEyes = [];
+        var img = new Image();
+        img.src = "./resource/images/babyEye0.png";
+        manyEyes.push({ img: img, durationTime:5000});
+        img = new Image();
+        img.src = "./resource/images/babyEye1.png";
+        manyEyes.push({ img: img, durationTime: 100 });
+        return manyEyes;
+    });
     this.body.src = "./resource/images/bigSwim0.png";
     //this.tail.src = "./resource/images/bigTail0.png"//this.manyTails[this.curTailIndex];
-    this.eye.src = "./resource/images/babyEye0.png";
+    //this.eye.src = "./resource/images/babyEye0.png";
 }
 
 //摇尾巴
@@ -73,11 +84,12 @@ MomFish.prototype.draw = function () {
     this.angle = lerpAngle(beta, this.angle, 0.6);    //获得每一次旋转的角度
     //this.SwimTail();
     this.tailAnimation.change(deltaTime, this.tail);
+    this.eyeAnimation.changeBaseOnImgDurationTime(deltaTime, this.eye);
     ctx1.save();     //保存之前的画布
     ctx1.translate(this.x, this.y);      //把原点变成(this.x , this.y);
     ctx1.rotate(this.angle);
     ctx1.drawImage(this.body, -this.body.width * 0.5, -this.body.height * 0.5);
     ctx1.drawImage(this.tail.img, -this.tail.img.width * 0.5 + 30, -this.tail.img.height * 0.5);
-    ctx1.drawImage(this.eye, -this.eye.width * 0.5, -this.eye.height * 0.5);
+    ctx1.drawImage(this.eye.img, -this.eye.img.width * 0.5, -this.eye.img.height * 0.5);
     ctx1.restore();   //操作完后返回到之前的画布
 }
