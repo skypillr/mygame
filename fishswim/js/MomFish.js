@@ -1,4 +1,4 @@
-function MomFish() {
+function MomFish(gameGlobal) {
     this.x = 0;
     this.y = 0;
     this.angle = 0;
@@ -75,21 +75,21 @@ MomFish.prototype.init = function () {
 //}
 
 MomFish.prototype.draw = function () {
-    this.x = lerpDistance(this.x, mx, 0.0006);
-    this.y = lerpDistance(this.y, my, 0.0006);
+    this.x = gameUtil.lerpDistance(this.x, GameGlobal.data.mx, 0.0006);
+    this.y = gameUtil.lerpDistance(this.y, GameGlobal.data.my, 0.0006);
 
-    var deltaX = mx - this.x;  //横坐标差
-    var deltaY = my - this.y;  //纵坐标差
+    var deltaX = GameGlobal.data.mx - this.x;  //横坐标差
+    var deltaY = GameGlobal.data.my - this.y;  //纵坐标差
     var beta = Math.atan2(deltaY, deltaX) + Math.PI;    //目标角度
-    this.angle = lerpAngle(beta, this.angle, 0.6);    //获得每一次旋转的角度
+    this.angle = gameUtil.lerpAngle(beta, this.angle, 0.6);    //获得每一次旋转的角度
     //this.SwimTail();
-    this.tailAnimation.change(deltaTime, this.tail);
-    this.eyeAnimation.changeBaseOnImgDurationTime(deltaTime, this.eye);
-    ctx1.save();     //保存之前的画布
-    ctx1.translate(this.x, this.y);      //把原点变成(this.x , this.y);
-    ctx1.rotate(this.angle);
-    ctx1.drawImage(this.body, -this.body.width * 0.5, -this.body.height * 0.5);
-    ctx1.drawImage(this.tail.img, -this.tail.img.width * 0.5 + 30, -this.tail.img.height * 0.5);
-    ctx1.drawImage(this.eye.img, -this.eye.img.width * 0.5, -this.eye.img.height * 0.5);
-    ctx1.restore();   //操作完后返回到之前的画布
+    this.tailAnimation.change(gameGlobal.deltaTime, this.tail);
+    this.eyeAnimation.changeBaseOnImgDurationTime(gameGlobal.deltaTime, this.eye);
+    gameGlobal.ctx.save();     //保存之前的画布
+    gameGlobal.ctx.translate(this.x, this.y);      //把原点变成(this.x , this.y);
+    gameGlobal.ctx.rotate(this.angle);
+    gameGlobal.ctx.drawImage(this.body, -this.body.width * 0.5, -this.body.height * 0.5);
+    gameGlobal.ctx.drawImage(this.tail.img, -this.tail.img.width * 0.5 + 30, -this.tail.img.height * 0.5);
+    gameGlobal.ctx.drawImage(this.eye.img, -this.eye.img.width * 0.5, -this.eye.img.height * 0.5);
+    gameGlobal.ctx.restore();   //操作完后返回到之前的画布
 }
