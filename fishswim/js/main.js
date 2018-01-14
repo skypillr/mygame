@@ -27,7 +27,7 @@ var onMouseMove = function (e) {
 }
 var drawFrame = function () {
     ctx1.clearRect(0, 0, canWidth, canHeight);  
-    appCavans.drawBackground(can1, "./resource/images/background.jpg");
+    appCavans.drawBackground(can1, "./resource/image/background.jpg");
     mom.draw();
 }
 var gameLoop = function () {

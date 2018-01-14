@@ -18,42 +18,42 @@ MomFish.prototype.init = function () {
     this.tailAnimation.init(100, function () {
         var manyTails = [];
         var img = new Image();
-        img.src = "./resource/images/bigTail0.png";
+        img.src = "./resource/image/bigTail0.png";
         manyTails.push(img);
         img = new Image();
-        img.src = "./resource/images/bigTail1.png";
+        img.src = "./resource/image/bigTail1.png";
         manyTails.push(img);
         img = new Image();
-        img.src = "./resource/images/bigTail2.png";
+        img.src = "./resource/image/bigTail2.png";
         manyTails.push(img);
         img = new Image();
-        img.src = "./resource/images/bigTail3.png";
+        img.src = "./resource/image/bigTail3.png";
         manyTails.push(img);
         img = new Image();
-        img.src = "./resource/images/bigTail4.png";
+        img.src = "./resource/image/bigTail4.png";
         manyTails.push(img);
         img = new Image();
-        img.src = "./resource/images/bigTail5.png";
+        img.src = "./resource/image/bigTail5.png";
         manyTails.push(img);
         img = new Image();
-        img.src = "./resource/images/bigTail6.png";
+        img.src = "./resource/image/bigTail6.png";
         manyTails.push(img);
         img = new Image();
-        img.src = "./resource/images/bigTail7.png";
+        img.src = "./resource/image/bigTail7.png";
         manyTails.push(img);
         return manyTails;
     })
     this.eyeAnimation.init(5000, function () {
         var manyEyes = [];
         var img = new Image();
-        img.src = "./resource/images/babyEye0.png";
+        img.src = "./resource/image/babyEye0.png";
         manyEyes.push({ img: img, durationTime:5000});
         img = new Image();
-        img.src = "./resource/images/babyEye1.png";
+        img.src = "./resource/image/babyEye1.png";
         manyEyes.push({ img: img, durationTime: 100 });
         return manyEyes;
     });
-    this.body.src = "./resource/images/bigSwim0.png";
+    this.body.src = "./resource/image/bigSwim0.png";
     //this.tail.src = "./resource/images/bigTail0.png"//this.manyTails[this.curTailIndex];
     //this.eye.src = "./resource/images/babyEye0.png";
 }
